@@ -1,0 +1,1 @@
+/home/npthanh/.config/nvim/init.vim
