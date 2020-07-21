@@ -49,6 +49,7 @@ Plug 'vuciv/vim-bujo'
 Plug 'tpope/vim-dispatch'
 
 Plug 'gruvbox-community/gruvbox'
+Plug 'vim-airline/vim-airline'
 
 call plug#end()
 
