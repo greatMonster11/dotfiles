@@ -1,0 +1,55 @@
+# Colors (My customization)
+colors:
+  # Default colors
+  primary:
+    background: '#0A0E14'
+    foreground: '#B3B1AD'
+
+  # Normal colors
+  normal:
+    black: '#2E3436'
+    red: '#F15050'
+    green: '#22D66F'
+    yellow: '#E7EB13'
+    blue: '#227EEA'
+    magenta: '#75507B'
+    cyan: '#1FB5F5'
+    white: '#D3D7CF'
+
+  # Bright colors
+  bright:
+    black: '#686868'
+    red: '#F07178'
+    green: '#C2D94C'
+    yellow: '#FFB454'
+    blue: '#59C2FF'
+    magenta: '#FFEE99'
+    cyan: '#95E6CB'
+    white: '#FFFFFF'
+
+# Font configuration (changes require restart)
+font:
+  # The normal (roman) font face to use.
+  normal:
+    family: JetBrains Mono NL
+    # Style can be specified to pick a specific face.
+    style: Regular
+
+  # The bold font face
+  bold:
+    family: JetBrains Mono NL
+    # Style can be specified to pick a specific face.
+    # style: Bold
+
+  # The italic font face
+  italic:
+    family: JetBrains Mono NL
+    # Style can be specified to pick a specific face.
+    # style: Italic
+  size: 13
+
+# Config for tmux workaround
+shell:
+    program: /usr/bin/tmux
+    args:
+     - -u # force UTF-8 in tmux
