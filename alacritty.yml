@@ -2,30 +2,34 @@
 colors:
   # Default colors
   primary:
-    background: '#0A0E14'
-    foreground: '#B3B1AD'
+    background: '0x002635'
+    foreground: '0xe6e6dc'
 
   # Normal colors
   normal:
-    black: '#2E3436'
-    red: '#F15050'
-    green: '#22D66F'
-    yellow: '#E7EB13'
-    blue: '#227EEA'
-    magenta: '#75507B'
-    cyan: '#1FB5F5'
-    white: '#D3D7CF'
+    black:   '0x00384d'
+    red:     '0xc43061'
+    green:   '0x7fc06e'
+    yellow:  '0xf08e48'
+    blue:    '0x1c8db2'
+    magenta: '0xc694ff'
+    cyan:    '0x00cccc'
+    white:   '0x77929e'
 
   # Bright colors
   bright:
-    black: '#686868'
-    red: '#F07178'
-    green: '#C2D94C'
-    yellow: '#FFB454'
-    blue: '#59C2FF'
-    magenta: '#FFEE99'
-    cyan: '#95E6CB'
-    white: '#FFFFFF'
+    black:   '0x517f8d'
+    red:     '0xff5a67'
+    green:   '0x9cf087'
+    yellow:  '0xffcc1b'
+    blue:    '0x7eb2dd'
+    magenta: '0xfb94ff'
+    cyan:    '0x00ffff'
+    white:   '0xb7cff9'
+
+  cursor:
+    text: "0x002635"
+    cursor: "0xffcc1b"
 
 # Font configuration (changes require restart)
 font:
