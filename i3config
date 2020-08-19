@@ -17,6 +17,9 @@ font pango:monospace 8
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
+for_window [class="^.*"] border pixel 2
+                          # class                 border  backgr. text    indicator child_border
+for_window [class="^.*"] client.focused          #77dd77 #285577 #ffffff #2e9ef4   #285577
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -38,10 +41,10 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 
 # use these keys for focus, movement, and resize directions when reaching for
 # the arrows is not convenient
-set $up l
-set $down k
-set $left j
-set $right semicolon
+set $up k
+set $down j
+set $left h
+set $right l
 
 # use Mouse+Mod1 to drag floating windows to their wanted position
 floating_modifier Mod1
@@ -84,7 +87,7 @@ bindsym Mod1+Shift+Up move up
 bindsym Mod1+Shift+Right move right
 
 # split in horizontal orientation
-bindsym Mod1+h split h
+bindsym Mod1+z split h
 
 # split in vertical orientation
 bindsym Mod1+v split v
@@ -195,7 +198,7 @@ bar {
 
 	colors {
 		# background $transparent
-		background #2B2C2B
+		background #1d2021
         statusline #e2e2e2
 		separator  #e2e2e2
 
@@ -226,8 +229,8 @@ bindsym XF86AudioPrev exec playerctl previous
 # Setup for an lock screen
 exec_always feh --bg-fill /home/npthanh/Pictures/Wallpapers/bike.jpg
 
-# Shutdown, reboot and etc...
-set $Locker i3lock && sleep 1
+# Key bindings for shutdown, reboot and etc...
+set $Locker i3lock --color=000000 && sleep 1
 
 set $mode_system (l)lock  (e)logout  (s)suspend  (h)hibernate  (r)reboot  (Shift+s)shutdown
 
@@ -245,3 +248,4 @@ mode "$mode_system" {
 }
 
 bindsym Mod1+Escape mode "$mode_system"
+
