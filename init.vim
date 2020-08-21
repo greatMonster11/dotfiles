@@ -1,5 +1,4 @@
 syntax on
-
 set guicursor=
 set relativenumber
 set nohlsearch
@@ -44,10 +43,12 @@ Plug 'mbbill/undotree'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'stsewd/fzf-checkout.vim'
 Plug 'vuciv/vim-bujo'
 Plug 'tpope/vim-dispatch'
 Plug 'theprimeagen/vim-be-good', {'do': './install.sh'}
 Plug 'gruvbox-community/gruvbox'
+Plug 'vim-airline/vim-airline'
 
 "  I AM SO SORRY FOR DOING COLOR SCHEMES IN MY VIMRC, BUT I HAVE
 "  TOOOOOOOOOOOOO
@@ -55,7 +56,6 @@ Plug 'gruvbox-community/gruvbox'
 Plug 'colepeters/spacemacs-theme.vim'
 Plug 'sainnhe/gruvbox-material'
 Plug 'phanviet/vim-monokai-pro'
-Plug 'vim-airline/vim-airline'
 Plug 'flazz/vim-colorschemes'
 Plug 'chriskempson/base16-vim'
 
@@ -96,12 +96,15 @@ let loaded_matchparen = 1
 let mapleader = " "
 
 let g:netrw_browse_split = 2
+let g:netrw_liststyle = 3
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
 
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
 let $FZF_DEFAULT_OPTS='--reverse'
+let g:fzf_checkout_track_key = 'ctrl-t'
 
+nnoremap <leader>gc :GCheckout<CR>
 nnoremap <leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>pw :Rg <C-R>=expand("<cword>")<CR><CR>
