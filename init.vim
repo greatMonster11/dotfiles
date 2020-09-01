@@ -48,8 +48,8 @@ Plug 'stsewd/fzf-checkout.vim'
 Plug 'vuciv/vim-bujo'
 Plug 'tpope/vim-dispatch'
 Plug 'theprimeagen/vim-be-good'
-Plug 'gruvbox-community/gruvbox'
 Plug 'vim-airline/vim-airline'
+Plug 'gruvbox-community/gruvbox'
 
 "  I AM SO SORRY FOR DOING COLOR SCHEMES IN MY VIMRC, BUT I HAVE
 "  TOOOOOOOOOOOOO
@@ -85,10 +85,8 @@ let g:go_highlight_format_strings = 1
 let g:go_highlight_variable_declarations = 1
 let g:go_auto_sameids = 1
 
-" vim-be-good 
 let g:vim_be_good_log_file = 1
 
-let g:gruvbox_italic=1
 colorscheme gruvbox
 set background=dark
 
@@ -100,7 +98,6 @@ let loaded_matchparen = 1
 let mapleader = " "
 
 let g:netrw_browse_split = 2
-let g:netrw_liststyle = 3
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
 
@@ -186,7 +183,6 @@ augroup highlight_yank
     autocmd!
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank(timeuout = 200)
 augroup END
-autocmd BufWritePre * :call TrimWhitespace()
 
 set wildoptions=pum
 set pumblend=1
