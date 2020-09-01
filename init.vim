@@ -1,4 +1,5 @@
 syntax on
+
 set guicursor=
 set relativenumber
 set nohlsearch
@@ -211,7 +212,7 @@ function! FloatTerm(...)
   let buf = nvim_create_buf(v:false, v:true)
   let s:float_term_win = nvim_open_win(buf, v:true, opts)
   " Styling
-  hi FloatWinBorder guifg=#87bb7c
+  hi FloatWinBorder guifg=#28d461
   call setwinvar(s:float_term_border_win, '&winhl', 'Normal:FloatWinBorder')
   call setwinvar(s:float_term_win, '&winhl', 'Normal:Normal')
   if a:0 == 0
