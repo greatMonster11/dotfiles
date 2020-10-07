@@ -1,5 +1,7 @@
 # Window customization
 window:
+  # tilte: Alacritty
+  dynamic_title: false
   # Window dimensions (changes require restart)
   #
   # Specified in number of columns/lines, not pixels.
@@ -60,22 +62,22 @@ colors:
 font:
   # The normal (roman) font face to use.
   normal:
-    family: JetBrains Mono NL
+    family: Ubuntu Mono
     # Style can be specified to pick a specific face.
     style: Regular
 
   # The bold font face
   bold:
-    family: JetBrains Mono NL
+    family: Ubuntu Mono
     # Style can be specified to pick a specific face.
     # style: Bold
 
   # The italic font face
   italic:
-    family: JetBrains Mono NL
+    family: Ubuntu Mono
     # Style can be specified to pick a specific face.
     # style: Italic
-  size: 12
+  size: 14
 
 # Config for tmux workaround
 # shell:
