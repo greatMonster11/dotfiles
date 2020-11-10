@@ -7,7 +7,10 @@
 #
 # To get a config file with the same key positions, but for your current
 # layout, use the i3-config-wizard
-#
+
+# Make sure you have transparent ternminal
+exec --no-startup-id compton
+
 set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -216,8 +219,8 @@ bar {
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec sh ~/.config/i3/backlight.sh -inc 20
 bindsym XF86MonBrightnessDown exec sh ~/.config/i3/backlight.sh -dec 20
-# bindsym XF86MonBrightnessUp exec xbacklight -inc 20
-# bindsym XF86MonBrightnessDown exec xbacklight -dec 20
+# bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+# bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
 # Touchpad controls
 bindsym XF86TouchpadToggle exec /home/npthanh/toggletouchpad.sh # toggle touchpad
@@ -229,7 +232,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # Setup for an lock screen
-exec_always feh --bg-fill /home/npthanh/Pictures/Wallpapers/bike.jpg
+exec_always feh --bg-fill /home/npthanh/Pictures/Wallpapers/mbuntu-1.jpg
 
 # Key bindings for shutdown, reboot and etc...
 set $Locker i3lock --color=000000 && sleep 1

@@ -36,13 +36,14 @@ battery all {
 }
 
 tztime local {
-        format = "%Y-%m-%d %H:%M:%S"
+        format = "📅: %Y-%m-%d %H:%M:%S"
 }
 
 load {
-        format = "%1min"
+        format = "😂: %1min"
 }
 
 disk "/" {
-        format = "%avail"
+        format = "👽: %avail"
 }
+
