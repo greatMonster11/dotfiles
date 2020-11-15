@@ -1,6 +1,7 @@
 syntax on
 filetype plugin indent on
 
+set exrc
 set guicursor=
 set relativenumber
 set nohlsearch
@@ -30,11 +31,11 @@ set cmdheight=2
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=50
+
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
 set colorcolumn=80
-highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 call plug#begin('~/.vim/plugged')
 
@@ -60,6 +61,7 @@ Plug 'vuciv/vim-bujo'
 Plug 'tpope/vim-dispatch'
 Plug 'theprimeagen/vim-be-good'
 Plug 'gruvbox-community/gruvbox'
+Plug 'octol/vim-cpp-enhanced-highlight'
 
 " telescope requirements...
 Plug 'nvim-lua/popup.nvim'
@@ -68,22 +70,41 @@ Plug 'nvim-lua/telescope.nvim'
 
 "  I AM SO SORRY FOR DOING COLOR SCHEMES IN MY VIMRC, BUT I HAVE
 "  TOOOOOOOOOOOOO
+
 Plug 'colepeters/spacemacs-theme.vim'
 Plug 'sainnhe/gruvbox-material'
 Plug 'phanviet/vim-monokai-pro'
 Plug 'flazz/vim-colorschemes'
 Plug 'chriskempson/base16-vim'
 
+" HARPOON!!
+Plug 'ThePrimeagen/harpoon'
+
 call plug#end()
 
 " let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'CodeLLDB' ]
 
-let g:gruvbox_contrast_dark = 'hard'
-if exists('+termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
-let g:gruvbox_invert_selection='0'
+let g:theprimeagen_colorscheme = "gruvbox"
+fun! ColorMyPencils()
+    colorscheme ayu
+    set background=dark
+
+    let g:gruvbox_contrast_dark = 'hard'
+    if exists('+termguicolors')
+        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    endif
+    let g:gruvbox_invert_selection='0'
+
+    highlight ColorColumn ctermbg=0 guibg=grey
+    highlight Normal guibg=none
+    " highlight LineNr guifg=#ff8659
+    " highlight LineNr guifg=#aed75f
+    highlight LineNr guifg=#5eacd3
+    highlight netrwDir guifg=#5eacd3
+    highlight qfFileName guifg=#aed75f
+endfun
+call ColorMyPencils()
 
 " --- vim go (polyglot) settings.
 let g:go_highlight_build_constraints = 1
@@ -103,9 +124,6 @@ let g:go_auto_sameids = 1
 
 let g:vim_be_good_log_file = 1
 let g:vim_apm_log = 1
-
-colorscheme gruvbox
-set background=dark
 
 if executable('rg')
     let g:rg_derive_root='true'
@@ -152,7 +170,7 @@ nnoremap <leader>vca :lua vim.lsp.buf.code_action()<CR>
 nnoremap <leader>vf :lua vim.lsp.buf.formatting()<CR>
 nnoremap <leader>vsd :lua vim.lsp.util.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
 
-fun GotoWindow(id)
+fun! GotoWindow(id)
     call win_gotoid(a:id)
     MaximizerToggle
 endfun
@@ -191,6 +209,7 @@ nnoremap <leader>grom :Git rebase origin/master<CR>
 nnoremap <leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>pw :lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>
 nnoremap <leader>pb :lua require('telescope.builtin').buffers()<CR>
+nnoremap <leader>vh :lua require('telescope.builtin').help_tags()<CR>
 nnoremap <leader>bs /<C-R>=escape(expand("<cWORD>"), "/")<CR><CR>
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
@@ -212,6 +231,11 @@ vnoremap K :m '<-2<CR>gv=gv
 " greatest remap ever
 vnoremap <leader>p "_dP
 
+" next greatest remap ever : asbjornHaland
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>Y gg"+yG
+
 " vim TODO
 nmap <Leader>tu <Plug>BujoChecknormal
 nmap <Leader>th <Plug>BujoAddnormal
@@ -220,8 +244,7 @@ let g:bujo#todo_file_path = $HOME . "/.cache/bujo"
 nnoremap <Leader>ww ofunction wait(ms: number): Promise<void> {<CR>return new Promise(res => setTimeout(res, ms));<CR>}<esc>k=i{<CR>
 
 " Vim with me
-nnoremap <leader>vwm :colorscheme gruvbox<bar>:set background=dark<CR>
-nmap <leader>vtm :highlight Pmenu ctermbg=gray guibg=gray
+nnoremap <leader>vwm :call ColorMyPencils()<CR>
 
 inoremap <C-c> <esc>
 
@@ -230,12 +253,10 @@ lua require'nvim_lsp'.tsserver.setup{ on_attach=require'completion'.on_attach }
 lua require'nvim_lsp'.clangd.setup{ on_attach=require'completion'.on_attach }
 lua require'nvim_lsp'.gopls.setup{ on_attach=require'completion'.on_attach }
 lua require'nvim_lsp'.rust_analyzer.setup{ on_attach=require'completion'.on_attach }
-" lua require'nvim_lsp'.sumneko_lua.setup{ on_attach=require'completion'.on_attach }
 
 nmap <leader>gh :diffget //3<CR>
 nmap <leader>gu :diffget //2<CR>
 nmap <leader>gs :G<CR>
-
 fun! EmptyRegisters()
     let regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
     for r in regs
@@ -252,7 +273,7 @@ endfun
 " ES
 com! W w
 
-fun! GreatMonster11_LspHighlighter()
+fun! ThePrimeagen_LspHighlighter()
     lua print("Testing")
     lua package.loaded["my_lspconfig"] = nil
     lua require("my_lspconfig")
@@ -261,70 +282,25 @@ endfun
 " Terminal commands
 " ueoa is first through fourth finger left hand home row.
 " This just means I can crush, with opposite hand, the 4 terminal positions
+"
+" These functions are stored in harpoon.  A plugn that I am developing
 nmap <leader>tu :call GotoBuffer(0)<CR>
 nmap <leader>te :call GotoBuffer(1)<CR>
 nmap <leader>to :call GotoBuffer(2)<CR>
 nmap <leader>ta :call GotoBuffer(3)<CR>
+nmap <leader>nn :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-nmap <leader>tsu :call SetBuffer(0)<CR>
-nmap <leader>tse :call SetBuffer(1)<CR>
-nmap <leader>tso :call SetBuffer(2)<CR>
-nmap <leader>tsa :call SetBuffer(3)<CR>
-
-" How to do this but much better?
-let g:win_ctrl_buf_list = [0, 0, 0, 0]
-
-fun! GotoBuffer(ctrlId)
-    if (a:ctrlId > 9) || (a:ctrlId < 0)
-        echo "CtrlID must be between 0 - 9"
-        return
-    end
-
-    let contents = g:win_ctrl_buf_list[a:ctrlId]
-    if type(l:contents) != v:t_list
-        echo "Nothing There"
-        return
-    end
-
-    let bufh = l:contents[1]
-    call nvim_win_set_buf(0, l:bufh)
-endfun
-fun! SetBuffer(ctrlId)
-    if has_key(b:, "terminal_job_id") == 0
-        echo "You must be in a terminal to execute this command"
-        return
-    end
-    if (a:ctrlId > 9) || (a:ctrlId < 0)
-        echo "CtrlID must be between 0 - 9"
-        return
-    end
-
-    let g:win_ctrl_buf_list[a:ctrlId] = [b:terminal_job_id, nvim_win_get_buf(0)]
-endfun
-
-fun! SendTerminalCommand(ctrlId, command)
-    if (a:ctrlId > 9) || (a:ctrlId < 0)
-        echo "CtrlID must be between 0 - 9"
-        return
-    end
-    let contents = g:win_ctrl_buf_list[a:ctrlId]
-    if type(l:contents) != v:t_list
-        echo "Nothing There"
-        return
-    end
-
-    let job_id = l:contents[0]
-    call chansend(l:job_id, a:command)
-endfun
-
-com! SetLspVirtualText call GreatMonster11_LspHighlighter()
+com! SetLspVirtualText call ThePrimeagen_LspHighlighter()
 
 augroup highlight_yank
     autocmd!
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 40})
 augroup END
 
-augroup THE_GREATMONSTER11
+augroup THE_PRIMEAGEN
+    autocmd!
     autocmd BufWritePre * :call TrimWhitespace()
     " autocmd VimEnter * :VimApm
     autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
