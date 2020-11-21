@@ -39,6 +39,26 @@ set colorcolumn=80
 
 call plug#begin('~/.vim/plugged')
 
+let g:firenvim_config = {
+    \ 'globalSettings': {
+        \ 'alt': 'all',
+    \  },
+    \ 'localSettings': {
+        \ '.*': {
+            \ 'cmdline': 'neovim',
+            \ 'priority': 0,
+            \ 'selector': 'textarea',
+            \ 'takeover': 'always',
+        \ },
+    \ }
+\ }
+let fc = g:firenvim_config['localSettings']
+let fc['https://studio.youtube.com.*'] = { 'takeover': 'never', 'priority': 1 }
+let fc['https?://instagram.com.*'] = { 'takeover': 'never', 'priority': 1 }
+let fc['https?://twitter.com.*'] = { 'takeover': 'never', 'priority': 1 }
+let fc['https://.*gmail.com.*'] = { 'takeover': 'never', 'priority': 1 }
+let fc['https?://.*twitch.tv.*'] = { 'takeover': 'never', 'priority': 1 }
+
 " Neovim lsp Plugins
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
@@ -80,11 +100,14 @@ Plug 'chriskempson/base16-vim'
 " HARPOON!!
 Plug 'ThePrimeagen/harpoon'
 
+" Fire Nvim
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(69) } }
+
 call plug#end()
 
 " let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'CodeLLDB' ]
 
-let g:theprimeagen_colorscheme = "gruvbox"
+let g:greatMonster11_colorscheme = "gruvbox"
 fun! ColorMyPencils()
     colorscheme ayu
     set background=dark
@@ -167,7 +190,6 @@ nnoremap <leader>vrr :lua vim.lsp.buf.references()<CR>
 nnoremap <leader>vrn :lua vim.lsp.buf.rename()<CR>
 nnoremap <leader>vh :lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>vca :lua vim.lsp.buf.code_action()<CR>
-nnoremap <leader>vf :lua vim.lsp.buf.formatting()<CR>
 nnoremap <leader>vsd :lua vim.lsp.util.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
 
 fun! GotoWindow(id)
@@ -207,6 +229,7 @@ nnoremap <leader>ga :Git fetch --all<CR>
 nnoremap <leader>grum :Git rebase upstream/master<CR>
 nnoremap <leader>grom :Git rebase origin/master<CR>
 nnoremap <leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>pw :lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>
 nnoremap <leader>pb :lua require('telescope.builtin').buffers()<CR>
 nnoremap <leader>vh :lua require('telescope.builtin').help_tags()<CR>
@@ -253,6 +276,7 @@ lua require'nvim_lsp'.tsserver.setup{ on_attach=require'completion'.on_attach }
 lua require'nvim_lsp'.clangd.setup{ on_attach=require'completion'.on_attach }
 lua require'nvim_lsp'.gopls.setup{ on_attach=require'completion'.on_attach }
 lua require'nvim_lsp'.rust_analyzer.setup{ on_attach=require'completion'.on_attach }
+" lua require'nvim_lsp'.sumneko_lua.setup{ on_attach=require'completion'.on_attach }
 
 nmap <leader>gh :diffget //3<CR>
 nmap <leader>gu :diffget //2<CR>
@@ -273,7 +297,7 @@ endfun
 " ES
 com! W w
 
-fun! ThePrimeagen_LspHighlighter()
+fun! GREATMONSTER11_LspHighlighter()
     lua print("Testing")
     lua package.loaded["my_lspconfig"] = nil
     lua require("my_lspconfig")
@@ -292,18 +316,22 @@ nmap <leader>nn :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '>
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-com! SetLspVirtualText call ThePrimeagen_LspHighlighter()
+com! SetLspVirtualText call GREATMONSTER11_LspHighlighter()
 
 augroup highlight_yank
     autocmd!
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 40})
 augroup END
 
-augroup THE_PRIMEAGEN
+augroup GREATMONSTER11
     autocmd!
     autocmd BufWritePre * :call TrimWhitespace()
     " autocmd VimEnter * :VimApm
     autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
+
+    " Fire Neovim
+    au BufEnter github.com_*.txt set filetype=markdown
+    au BufEnter txti.es_*.txt set filetype=typescript
 augroup END
 
 set wildoptions=pum
