@@ -53,8 +53,8 @@ set $right l
 floating_modifier Mod1
 
 # start a terminal
-# bindsym Mod1+Return exec i3-sensible-terminal
-bindsym Mod1+Return exec alacritty
+bindsym Mod1+Return exec i3-sensible-terminal
+# bindsym Mod1+Return exec alacritty
 
 # kill focused window
 bindsym Mod1+Shift+q kill
@@ -232,7 +232,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # Setup for an lock screen
-exec_always feh --bg-fill /home/npthanh/Pictures/Wallpapers/mbuntu-1.jpg
+exec_always feh --bg-fill /home/npthanh/Pictures/Wallpapers/fantasy_girl.jpg
 
 # Key bindings for shutdown, reboot and etc...
 set $Locker i3lock --color=000000 && sleep 1
@@ -256,3 +256,4 @@ bindsym Mod1+Escape mode "$mode_system"
 
 # Using ibus for VietNamese input
 exec --no-startup-id ibus-daemon --xim -d -r
+
