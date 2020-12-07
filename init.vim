@@ -27,7 +27,6 @@ set signcolumn=yes
 
 " Give more space for displaying messages.
 set cmdheight=2
-
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=50
@@ -65,6 +64,10 @@ Plug 'nvim-lua/completion-nvim'
 Plug 'tjdevries/nlua.nvim'
 Plug 'tjdevries/lsp_extensions.nvim'
 
+" Neovim Tree shitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'}
+Plug 'nvim-treesitter/playground'
+
 " Debugger Plugins
 Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
@@ -82,6 +85,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'theprimeagen/vim-be-good'
 Plug 'gruvbox-community/gruvbox'
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'tpope/vim-projectionist'
 
 " telescope requirements...
 Plug 'nvim-lua/popup.nvim'
@@ -91,14 +95,13 @@ Plug 'nvim-lua/telescope.nvim'
 "  I AM SO SORRY FOR DOING COLOR SCHEMES IN MY VIMRC, BUT I HAVE
 "  TOOOOOOOOOOOOO
 
-Plug 'colepeters/spacemacs-theme.vim'
 Plug 'sainnhe/gruvbox-material'
 Plug 'phanviet/vim-monokai-pro'
 Plug 'flazz/vim-colorschemes'
 Plug 'chriskempson/base16-vim'
 
 " HARPOON!!
-Plug 'ThePrimeagen/harpoon'
+Plug 'Theprimeagen/harpoon'
 
 " Fire Nvim
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(69) } }
@@ -107,9 +110,9 @@ call plug#end()
 
 " let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'CodeLLDB' ]
 
-let g:greatMonster11_colorscheme = "gruvbox"
+let g:theprimeagen_colorscheme = "gruvbox"
 fun! ColorMyPencils()
-    colorscheme ayu
+    colorscheme gruvbox
     set background=dark
 
     let g:gruvbox_contrast_dark = 'hard'
@@ -129,21 +132,18 @@ fun! ColorMyPencils()
 endfun
 call ColorMyPencils()
 
-" --- vim go (polyglot) settings.
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
-let g:go_highlight_function_parameters = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_generate_tags = 1
-let g:go_highlight_format_strings = 1
-let g:go_highlight_variable_declarations = 1
-let g:go_auto_sameids = 1
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+        ensure_installed = "maintained",
+        highlight = { enable = true },
+        playground = {
+            enable = true,
+            disable = {},
+            updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+            persist_queries = false -- Whether the query persists across vim sessions
+        }
+}
+EOF
 
 let g:vim_be_good_log_file = 1
 let g:vim_apm_log = 1
@@ -190,6 +190,8 @@ nnoremap <leader>vrr :lua vim.lsp.buf.references()<CR>
 nnoremap <leader>vrn :lua vim.lsp.buf.rename()<CR>
 nnoremap <leader>vh :lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>vca :lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader>vf :lua vim.lsp.buf.formatting()<CR>
+nnoremap <leader>vsc :lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>
 nnoremap <leader>vsd :lua vim.lsp.util.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
 
 fun! GotoWindow(id)
@@ -223,13 +225,11 @@ nmap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
 " <Plug>VimspectorStop
 " <Plug>VimspectorPause
 " <Plug>VimspectorAddFunctionBreakpoint
-
 nnoremap <leader>gc :GBranches<CR>
 nnoremap <leader>ga :Git fetch --all<CR>
 nnoremap <leader>grum :Git rebase upstream/master<CR>
 nnoremap <leader>grom :Git rebase origin/master<CR>
 nnoremap <leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
-nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>pw :lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>
 nnoremap <leader>pb :lua require('telescope.builtin').buffers()<CR>
 nnoremap <leader>vh :lua require('telescope.builtin').help_tags()<CR>
@@ -272,10 +272,11 @@ nnoremap <leader>vwm :call ColorMyPencils()<CR>
 inoremap <C-c> <esc>
 
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-lua require'nvim_lsp'.tsserver.setup{ on_attach=require'completion'.on_attach }
-lua require'nvim_lsp'.clangd.setup{ on_attach=require'completion'.on_attach }
-lua require'nvim_lsp'.gopls.setup{ on_attach=require'completion'.on_attach }
-lua require'nvim_lsp'.rust_analyzer.setup{ on_attach=require'completion'.on_attach }
+lua require'lspconfig'.tsserver.setup{ on_attach=require'completion'.on_attach }
+lua require'lspconfig'.clangd.setup{ on_attach=require'completion'.on_attach }
+lua require'lspconfig'.pyls.setup{ on_attach=require'completion'.on_attach }
+lua require'lspconfig'.gopls.setup{ on_attach=require'completion'.on_attach }
+lua require'lspconfig'.rust_analyzer.setup{ on_attach=require'completion'.on_attach }
 " lua require'nvim_lsp'.sumneko_lua.setup{ on_attach=require'completion'.on_attach }
 
 nmap <leader>gh :diffget //3<CR>
@@ -294,10 +295,10 @@ fun! TrimWhitespace()
     call winrestview(l:save)
 endfun
 
-" ES
+" YES
 com! W w
 
-fun! GREATMONSTER11_LspHighlighter()
+fun! GreatMonster11_LspHighlighter()
     lua print("Testing")
     lua package.loaded["my_lspconfig"] = nil
     lua require("my_lspconfig")
@@ -308,6 +309,7 @@ endfun
 " This just means I can crush, with opposite hand, the 4 terminal positions
 "
 " These functions are stored in harpoon.  A plugn that I am developing
+nmap <leader>tsu :call SetBuffer(0)<CR>
 nmap <leader>tu :call GotoBuffer(0)<CR>
 nmap <leader>te :call GotoBuffer(1)<CR>
 nmap <leader>to :call GotoBuffer(2)<CR>
@@ -316,7 +318,7 @@ nmap <leader>nn :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '>
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-com! SetLspVirtualText call GREATMONSTER11_LspHighlighter()
+com! SetLspVirtualText call GreatMonster11_LspHighlighter()
 
 augroup highlight_yank
     autocmd!
@@ -332,6 +334,7 @@ augroup GREATMONSTER11
     " Fire Neovim
     au BufEnter github.com_*.txt set filetype=markdown
     au BufEnter txti.es_*.txt set filetype=typescript
+    au BufEnter stackoverflow_*.txt filetype=markdown
 augroup END
 
 set wildoptions=pum
