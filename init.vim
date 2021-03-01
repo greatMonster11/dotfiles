@@ -1,8 +1,5 @@
 call plug#begin('~/.vim/plugged')
 
-" Yes, I am a sneaky snek now
-Plug 'ambv/black'
-
 " Neovim lsp Plugins
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
@@ -12,10 +9,6 @@ Plug 'tjdevries/lsp_extensions.nvim'
 " Neovim Tree shitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
-
-" Debugger Plugins
-Plug 'puremourning/vimspector'
-Plug 'szw/vim-maximizer'
 
 Plug 'rust-lang/rust.vim'
 Plug 'tweekmonster/gofmt.vim'
@@ -44,13 +37,7 @@ Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 Plug 'flazz/vim-colorschemes'
 Plug 'chriskempson/base16-vim'
-Plug 'dracula/vim', { 'as': 'dracula' }
 
-" HARPOON!!
-Plug 'mhinz/vim-rfc'
-
-" Fire Nvim
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(69) } }
 
 " Cheat Sheet
 Plug 'dbeniamine/cheat.sh-vim'
@@ -70,9 +57,6 @@ endif
 
 let loaded_matchparen = 1
 let mapleader = " "
-
-nnoremap <leader>cP :lua require("contextprint").add_statement()<CR>
-nnoremap <leader>cp :lua require("contextprint").add_statement(true)<CR>
 
 nnoremap <leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>bs /<C-R>=escape(expand("<cWORD>"), "/")<CR><CR>
