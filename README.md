@@ -33,3 +33,9 @@ nvim --headless +PlugInstall +qa
 ```
 
 This last step can also be achieved using `:PlugInstall` after opening Neovim - however it will require a restart for them to properly load.
+
+#### Reference
+[ThePrimeagen](https://www.youtube.com/channel/UC8ENHE5xdFSwx71u3fDH5Xw "ThePrimeagen")
+[TJ Devries](https://www.youtube.com/channel/UCd3dNckv1Za2coSaHGHl5aA "TJ Devries")
+
+

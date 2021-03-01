@@ -18,6 +18,10 @@ window:
     x: 2
     y: 2
 
+# Background opacity as a floating point number from `0.0` to `1.0`
+# The value `0.0` is completely trasparent
+background_opacity: 0.9
+
 # evn
 env:
   # TERM variable
@@ -28,35 +32,37 @@ env:
   # available, otherwise `xterm-256color` is used.
   TERM: xterm-256color
 
-# Colors (My customization)
+# Colors (Gruvbox dark)
 colors:
   # Default colors
   primary:
-      background: '0x282828'
-      foreground: '0xebdbb2'
-      bright_foreground: '0xFF9C9C'
+    # hard contrast:  background = '#1d2021'
+    background : '#1d2021'
+    # background: '#282828'
+    # soft contrast: background = '#32302f'
+    foreground: '#ebdbb2'
 
+  # Normal colors
   normal:
-    black:   '0x282828'
-    red:     '0xcc241d'
-    green:   '0x98971a'
-    yellow:  '0xd79921'
-    blue:    '0x458588'
-    magenta: '0xb16286'
-    cyan:    '0x689d6a'
-    white:   '0xa89984'
+    black:   '#282828'
+    red:     '#cc241d'
+    green:   '#98971a'
+    yellow:  '#d79921'
+    blue:    '#458588'
+    magenta: '#b16286'
+    cyan:    '#689d6a'
+    white:   '#a89984'
 
+  # Bright colors
   bright:
-    black:   '0x928374'
-    red:     '0xfb4934'
-    green:   '0xb8bb26'
-    yellow:  '0xfabd2f'
-    blue:    '0x83a598'
-    magenta: '0xd3869b'
-    cyan:    '0x8ec07c'
-    white:   '0xebdbb2'
-
-  indexed_colors: []
+    black:   '#928374'
+    red:     '#fb4934'
+    green:   '#b8bb26'
+    yellow:  '#fabd2f'
+    blue:    '#83a598'
+    magenta: '#d3869b'
+    cyan:    '#8ec07c'
+    white:   '#ebdbb2'
 
 # Font configuration (changes require restart)
 font:
@@ -77,10 +83,20 @@ font:
     family: Ubuntu Mono
     # Style can be specified to pick a specific face.
     # style: Italic
-  size: 14
+  size: 13
 
 # Config for tmux workaround
-# shell:
-#     program: /usr/bin/tmux
-#     args:
-#      - -u # force UTF-8 in tmux
+shell:
+    program: /usr/bin/tmux
+    args:
+     - -u # force UTF-8 in tmux
+
+# Hope this gonna help on scrolling with me :D
+# This is combined with T-mux
+# Usage: Prefix + [ --->> Now you can scroll like you're in VIM
+key_bindings:
+    - { key: PageUp,   mods: Shift, action: ScrollPageUp,   mode: ~Alt       }
+    - { key: PageDown, mods: Shift, action: ScrollPageDown, mode: ~Alt       }
+    - { key: Home,     mods: Shift, action: ScrollToTop,    mode: ~Alt       }
+    - { key: End,      mods: Shift, action: ScrollToBottom, mode: ~Alt       }
+
