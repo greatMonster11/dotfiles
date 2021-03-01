@@ -8,9 +8,12 @@
 # To get a config file with the same key positions, but for your current
 # layout, use the i3-config-wizard
 
+# Make screen time always (won't turn off)
+# exec_always xset s off
+# exec_always xset -dpms
+
 # Make sure you have transparent ternminal
 exec --no-startup-id compton
-
 set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -53,15 +56,15 @@ set $right l
 floating_modifier Mod1
 
 # start a terminal
-bindsym Mod1+Return exec i3-sensible-terminal
-# bindsym Mod1+Return exec alacritty
+# bindsym Mod1+Return exec i3-sensible-terminal
+bindsym Mod1+Return exec alacritty
 
 # kill focused window
 bindsym Mod1+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym Mod1+Shift+d exec dmenu_run
-bindsym Mod1+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'JetBrains Mono 13'
+bindsym Mod1+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'JetBrains Mono 13' -mesg 'Howdy'
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -199,31 +202,17 @@ bindsym Mod1+r mode "resize"
 # finds out, if available)
 # Start i3bar to display a workspace bar
 bar {
-    status_command i3status
-
-	colors {
-		# background $transparent
-		background #1d2021
-        statusline #e2e2e2
-		separator  #e2e2e2
-
-        #                  border  backgr  text
-		focused_workspace  #2b2c2b #2b2c2b #e2e2e2
-		active_workspace   #2b2c2b #2b2c2b #4b4c4b
-		inactive_workspace #2b2c2b #2b2c2b #4b4c4b
-		urgent_workspace   #2b2c2b #2b2c2b #db3f3f
-	}
+        status_command i3status
+        tray_output primary
 }
 
+########## CUSTOM KEYS ########
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec sh ~/.config/i3/backlight.sh -inc 20
 bindsym XF86MonBrightnessDown exec sh ~/.config/i3/backlight.sh -dec 20
-# bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-# bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
-
-# Touchpad controls
-bindsym XF86TouchpadToggle exec /home/npthanh/toggletouchpad.sh # toggle touchpad
+# bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+# bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play
@@ -232,10 +221,10 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # Setup for an lock screen
-exec_always feh --bg-fill /home/npthanh/Pictures/Wallpapers/fantasy_girl.jpg
+exec_always feh --bg-fill /home/npthanh/Pictures/Wallpapers/beautiful.jpg
 
 # Key bindings for shutdown, reboot and etc...
-set $Locker i3lock --color=000000 && sleep 1
+set $Locker i3lock --image=/home/npthanh/Pictures/Wallpapers/Live.png && sleep 1
 
 set $mode_system (l)lock  (e)logout  (s)suspend  (h)hibernate  (r)reboot  (Shift+s)shutdown
 
@@ -252,8 +241,27 @@ mode "$mode_system" {
 	bindsym Escape mode "default"
 }
 
-bindsym Mod1+Escape mode "$mode_system"
+bindsym Mod1+Escape mode "$mode_system
 
 # Using ibus for VietNamese input
 exec --no-startup-id ibus-daemon --xim -d -r
 
+# Set up inertial and natural (reversed, Mac-like) scrolling
+exec --no-startup-id synclient TouchpadOff=1 HorizEdgeScroll=0 VertEdgeScroll=0 VertScrollDelta=-60
+
+# redshift modes for eyes protection ( night light mode)
+bindsym $mod+o mode "$mode_redshift"
+set $mode_redshift Set colour temperature: (a)uto, (r)eset, (2)500K, (3)000K, (4)000K, (5)000K
+set $kill_redshift pkill -9 redshift;
+mode "$mode_redshift" {
+    bindsym a exec --no-startup-id "$kill_redshift redshift -P -t 5000:4000", mode "default"
+    bindsym r exec --no-startup-id "$kill_redshift redshift -x", mode "default"
+    bindsym 2 exec --no-startup-id "$kill_redshift redshift -P -O 2500", mode "default"
+    bindsym 3 exec --no-startup-id "$kill_redshift redshift -P -O 3000", mode "default"
+    bindsym 4 exec --no-startup-id "$kill_redshift redshift -P -O 4000", mode "default"
+    bindsym 5 exec --no-startup-id "$kill_redshift redshift -P -O 5000", mode "default"
+
+    # exit mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
