@@ -37,6 +37,7 @@
 # SPACESHIP_TERRAFORM_SHOW=false
 # SPACESHIP_VI_MODE_SHOW=false
 # SPACESHIP_JOBS_SHOW=false
+
 #
 # For better color render
 export TERM="xterm-256color"

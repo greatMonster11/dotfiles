@@ -1,0 +1,25 @@
+[core]
+    pager = delta
+    [editor] = nvim
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    features = side-by-side line-numbers decorations
+    whitespace-error-style = 22 reverse
+	side-by-side = true
+    line-numbers = true
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
+
+[alias]
+    # Thanks r00k, this creates a pretty graph view of the log
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+
+[user]
+	name = greatMonster11
+	email = nguyenphuocthanhtn2015@gmail.com
