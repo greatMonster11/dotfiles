@@ -1,0 +1,101 @@
+# Window customization
+window:
+  # tilte: Alacritty
+  dynamic_title: false
+  # Window dimensions (changes require restart)
+  #
+  # Specified in number of columns/lines, not pixels.
+  # If both are `0`, this setting is ignored.
+  dimensions:
+    columns: 80
+    lines: 24
+
+  # Window padding (changes require restart)
+  #
+  # Blank space added around the window in pixels. This padding is scaled
+  # by DPI and the specified value is always added at both opposing sides.
+  padding:
+    x: 2
+    y: 2
+
+# Background opacity as a floating point number from `0.0` to `1.0`
+# The value `0.0` is completely trasparent
+background_opacity: 0.85
+
+# evn
+env:
+  # TERM variable
+  #
+  # This value is used to set the `$TERM` environment variable for
+  # each instance of Alacritty. If it is not present, alacritty will
+  # check the local terminfo database and use `alacritty` if it is
+  # available, otherwise `xterm-256color` is used.
+  TERM: xterm-256color
+
+# Colors (Gruvbox dark)
+colors:
+  # Default colors
+  primary:
+    # hard contrast:  background = '#1d2021'
+    background : '#1d2021'
+    # background: '#282828'
+    # soft contrast: background = '#32302f'
+    foreground: '#ebdbb2'
+
+  # Normal colors
+  normal:
+    black:   '#282828'
+    red:     '#cc241d'
+    green:   '#98971a'
+    yellow:  '#d79921'
+    blue:    '#458588'
+    magenta: '#b16286'
+    cyan:    '#689d6a'
+    white:   '#a89984'
+
+  # Bright colors
+  bright:
+    black:   '#928374'
+    red:     '#fb4934'
+    green:   '#b8bb26'
+    yellow:  '#fabd2f'
+    blue:    '#83a598'
+    magenta: '#d3869b'
+    cyan:    '#8ec07c'
+    white:   '#ebdbb2'
+
+# Font configuration (changes require restart)
+font:
+  # The normal (roman) font face to use.
+  normal:
+    family: Ubuntu Mono
+    # Style can be specified to pick a specific face.
+    style: Regular
+
+  # The bold font face
+  bold:
+    family: Ubuntu Mono
+    # Style can be specified to pick a specific face.
+    # style: Bold
+
+  # The italic font face
+  italic:
+    family: Ubuntu Mono
+    # Style can be specified to pick a specific face.
+    # style: Italic
+  size: 13
+
+# Config for tmux workaround
+shell:
+    program: /usr/bin/tmux
+    args:
+     - -u # force UTF-8 in tmux
+
+# Hope this gonna help on scrolling with me :D
+# This is combined with T-mux
+# Usage: Prefix + [ --->> Now you can scroll like you're in VIM
+key_bindings:
+    - { key: PageUp,   mods: Shift, action: ScrollPageUp,   mode: ~Alt       }
+    - { key: PageDown, mods: Shift, action: ScrollPageDown, mode: ~Alt       }
+    - { key: Home,     mods: Shift, action: ScrollToTop,    mode: ~Alt       }
+    - { key: End,      mods: Shift, action: ScrollToBottom, mode: ~Alt       }

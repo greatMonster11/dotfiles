@@ -1,14 +1,8 @@
-## My dot file configuration for my work place babe ....
+### My dotfiles configuration for my workspace babe  ....
 
 This would be updated regularly :)
 
-### MUST USE NEOVIM 5x !!!
-
-![preview]
-
-[preview]: https://github.com/greatMonster11/dot-file/blob/master/screen.png "TheGreatMonster11"
-
-## Drag-and-drop Configuration
+### Drag-and-drop Configuration (Nvim 5.x and above)
 
 To use this configuration for your own personal use (recommended):
 
