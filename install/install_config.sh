@@ -16,4 +16,5 @@ for f in `find . -regex ".*\.vim$\|.*\.lua$"`; do
     fi
 done
 
+echo "Updating packages in VIM..."
 nvim --headless +PlugInstall +qa
