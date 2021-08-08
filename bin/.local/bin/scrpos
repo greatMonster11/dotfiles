@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+die () {
+    echo >&2 "error: $*"
+    exit 1
+}
+
+while [ $# -gt 0 ]; do
+    arg="$1"
+    case "$arg" in
+        --)
+            break ;;
+        --help|-h)
+            echo "Usage: scrpos [ --left-of | --right-of | --above | --below ]"
+            echo "This command will execute: xrandr --output eDP-1 <option> HDMI-1"
+            exit 0 ;;
+        --above|--below|--left-of|--right-of)
+            xrandr --output eDP-1 $1 HDMI-1
+            exit 0 ;;
+        --*)
+            die "unrecognised option: '$arg'" ;;
+        *)
+            break ;;
+    esac
+done
