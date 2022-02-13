@@ -7,3 +7,4 @@ nnoremap <leader>pb :lua require('telescope.builtin').buffers()<CR>
 nnoremap <leader>vh :lua require('telescope.builtin').help_tags()<CR>
 
 nnoremap <leader>va :lua require('greatmonster.telescope').anime_selector()<CR>
+nnoremap <leader>vrc :lua require('greatmonster.telescope').search_dotfiles()<CR>

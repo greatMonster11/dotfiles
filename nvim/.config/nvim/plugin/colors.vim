@@ -1,4 +1,5 @@
 let g:colorscheme = "gruvbox"
+
 fun! MyRice()
     let g:gruvbox_contrast_dark = 'hard'
     if exists('+termguicolors')
@@ -11,7 +12,7 @@ fun! MyRice()
     if has('nvim')
         call luaeval('vim.cmd("colorscheme " .. _A[1])', [g:colorscheme])
     else
-        " TODO: What the way to use g:theprimeagen_colorscheme
+        " TODO: What the way to use g:colorscheme
         colorscheme gruvbox
     endif
 
@@ -24,7 +25,7 @@ fun! MyRice()
     highlight LineNr guifg=#5eacd3
     highlight netrwDir guifg=#5eacd3
     highlight qfFileName guifg=#aed75f
-    hi TelescopeBorder guifg=#5eacd
+    hi TelescopeBorder guifg=#aed75f
 endfun
 call MyRice()
 

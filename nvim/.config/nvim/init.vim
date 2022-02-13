@@ -17,11 +17,17 @@ call plug#begin('~/.vim/plugged')
 " Yes, I am a sneaky snek now
 Plug 'ambv/black'
 
-" Plebvim lsp Plugins
+" Neovim lsp Plugins
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-compe'
-Plug 'glepnir/lspsaga.nvim'
-Plug 'simrat39/symbols-outline.nvim'
+
+" Completion setup
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+" For luasnip users.
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 
 " Neovim Tree shitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -54,12 +60,10 @@ Plug 'sbdchd/neoformat'
 
 call plug#end()
 
-
 lua require("greatmonster")
 lua require'nvim-treesitter.configs'.setup { highlight = { enable = true } }
 
 let g:vim_be_good_log_file = 1
-let g:vim_apm_log = 1
 
 if executable('rg')
     let g:rg_derive_root='true'
@@ -73,9 +77,9 @@ nnoremap <leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>bs /<C-R>=escape(expand("<cWORD>"), "/")<CR><CR>
 nnoremap <leader>u :UndotreeShow<CR>
 nnoremap <leader>pv :Sex!<CR>
-nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
-nnoremap <Leader>+ :vertical resize +5<CR>
-nnoremap <Leader>- :vertical resize -5<CR>
+nnoremap <leader><CR> :so ~/.config/nvim/init.vim<CR>
+nnoremap <leader>+ :vertical resize +5<CR>
+nnoremap <leader>- :vertical resize -5<CR>
 nnoremap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
 
 " Moving text
@@ -83,8 +87,6 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 inoremap <C-j> <esc>:m .+1<CR>==
 inoremap <C-k> <esc>:m .-2<CR>==
-nnoremap <leader>j :m .+1<CR>==
-nnoremap <leader>k :m .-2<CR>==
 
 " greatest remap ever
 vnoremap <leader>p "_dP
@@ -100,9 +102,6 @@ vnoremap <leader>d "_d
 inoremap <C-c> <esc>
 
 " Awesome remaps
-
-" Yank from the cursor to the end
-nnoremap Y y$ 
 
 " Keep it centered
 nnoremap n nzzzv
@@ -126,11 +125,13 @@ fun! EmptyRegisters()
     endfor
 endfun
 
-" ES
+" YES
 com! W w
 
 augroup highlight_yank
     autocmd!
+    autocmd BufWritePre lua,cpp,c,h,hpp,cxx,cc Neoformat
+    " Delete trailing whitespace on save
+    autocmd BufWritePre * :%s/\s\+$//e
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 40})
 augroup END
-

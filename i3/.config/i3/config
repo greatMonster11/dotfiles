@@ -212,7 +212,7 @@ bar {
         #     background #282A36
         #     statusline #F8F8F2
         #     separator  #44475A
-        #  
+        #
         #     focused_workspace  #44475A #44475A #
         #     active_workspace   #282A36 #44475A #
         #     inactive_workspace #282A36 #282A36 #
@@ -236,11 +236,11 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # Setup for an lock screen
-exec_always feh --bg-fill /home/npthanh/Pictures/Wallpapers/ezreal.png
+exec_always --no-startup-id feh --bg-fill /home/npthanh/Pictures/Wallpapers/cyber.png
 
 # Key bindings for shutdown, reboot and etc...
 # set $Locker sh ~/.config/i3/scripts/lock.sh && sleep 1
-set $Locker i3lock -t --image=/home/npthanh/Pictures/Wallpapers/darius.png && sleep 1
+set $Locker i3lock -t --image=/home/npthanh/Pictures/Wallpapers/cyber.png && sleep 1
 
 # auto lock the screen
 exec --no-startup-id /home/npthanh/.config/i3/scripts/auto_locker.sh

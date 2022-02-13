@@ -8,6 +8,7 @@ LS_COLORS="$LS_COLORS:ow="; export LS_COLORS
 # Export path for Golang and gopls (Go Please !!)
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$HOME/go/bin:$PATH
+export PATH=~/bin/:$PATH
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -106,7 +107,7 @@ alias vi=nvim
 
 # Some magic with commands
 
-# alias cat="bat"
+# alias cat='bat --theme="base26"'
 # export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 alias fd="fdfind"
 alias python3="python3.6"
@@ -115,11 +116,16 @@ alias python="python2"
 alias open="xdg-open"
 alias nvimrc="nvim ~/dotfiles/nvim/.config/nvim/init.vim"
 alias zshrc="nvim ~/dotfiles/zsh/.zshrc"
+alias bashrc="nvim ~/.bashrc"
 alias i3rc="nvim ~/dotfiles/i3/.config/i3/config"
 alias tmuxrc="nvim ~/dotfiles/tmux/.tmux.conf"
 alias alacrc="nvim ~/dotfiles/alacritty/.config/alacritty/alacritty.yml"
 alias gitTree="git log --oneline --graph --color --all --decorate"
 alias resetnet="sudo service NetworkManager restart"
+
+# Key practice
+alias asdf="setxkbmap dvorak"
+alias aoeu="setxkbmap us"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"

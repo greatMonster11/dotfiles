@@ -1,23 +1,31 @@
+-- Setup lspconfig.
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 USER = vim.fn.expand('$USER')
 
 local sumneko_root_path = "/home/" .. USER .. "/.config/lua-language-server"
 local sumneko_binary = "/home/" .. USER .. "/.config/lua-language-server/bin/Linux/lua-language-server"
 
 local function on_attach()
-    -- TODO: TJ told me to do this and I should do it because he is Telescopic
-    -- "Big Tech" "Cash Money" Johnson
+    -- Try to replace lsp.vim file
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, {buffer=0})
 end
 
-require'lspconfig'.tsserver.setup{ on_attach=on_attach }
+require'lspconfig'.tsserver.setup{capabilities = capabilities, on_attach=on_attach }
 
 require'lspconfig'.clangd.setup{
+    capabilities = capabilities,
     on_attach = on_attach,
     root_dir = function() return vim.loop.cwd() end
 }
 
-require'lspconfig'.pyright.setup{ on_attach=on_attach }
+require'lspconfig'.pyright.setup{
+    capabilities = capabilities,
+    on_attach=on_attach
+}
 
 require'lspconfig'.gopls.setup{
+    capabilities = capabilities,
     on_attach=on_attach,
     cmd = {"gopls", "serve"},
     settings = {
@@ -30,10 +38,14 @@ require'lspconfig'.gopls.setup{
     },
 }
 -- who even uses this?
-require'lspconfig'.rust_analyzer.setup{ on_attach=on_attach }
+require'lspconfig'.rust_analyzer.setup{
+    capabilities = capabilities,
+    on_attach=on_attach
+}
 
 -- Lua LSP
 require'lspconfig'.sumneko_lua.setup{
+    capabilities = capabilities,
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
     settings = {
         Lua = {
@@ -55,51 +67,37 @@ require'lspconfig'.sumneko_lua.setup{
     }
 }
 
--- symbols-outline.nvim
-local opts = {
-    highlight_hovered_item = true,
-    show_guides = true,
-    auto_preview = false, -- experimental
-    position = 'right',
-    keymaps = {
-        close = "<Esc>",
-        goto_location = "<Cr>",
-        focus_location = "o",
-        hover_symbol = "<C-space>",
-        rename_symbol = "r",
-        code_actions = "a"
-    },
-    lsp_blacklist = {}
+local M = {}
+
+M.icons = {
+  Class = " ",
+  Color = " ",
+  Constant = " ",
+  Constructor = " ",
+  Enum = "了 ",
+  EnumMember = " ",
+  Field = " ",
+  File = " ",
+  Folder = " ",
+  Function = " ",
+  Interface = "ﰮ ",
+  Keyword = " ",
+  Method = "ƒ ",
+  Module = " ",
+  Property = " ",
+  Snippet = "﬌ ",
+  Struct = " ",
+  Text = " ",
+  Unit = " ",
+  Value = " ",
+  Variable = " ",
 }
 
-require('symbols-outline').setup(opts)
+function M.setup()
+  local kinds = vim.lsp.protocol.CompletionItemKind
+  for i, kind in ipairs(kinds) do
+    kinds[i] = M.icons[kind] or kind
+  end
+end
 
--- symbols for autocomplete
-vim.lsp.protocol.CompletionItemKind = {
-    "   (Text) ",
-    "   (Method)",
-    "   (Function)",
-    "   (Constructor)",
-    " ﴲ  (Field)",
-    "[] (Variable)",
-    "   (Class)",
-    " ﰮ  (Interface)",
-    "   (Module)",
-    " 襁 (Property)",
-    "   (Unit)",
-    "   (Value)",
-    " 練 (Enum)",
-    "   (Keyword)",
-    "   (Snippet)",
-    "   (Color)",
-    "   (File)",
-    "   (Reference)",
-    "   (Folder)",
-    "   (EnumMember)",
-    " ﲀ  (Constant)",
-    " ﳤ  (Struct)",
-    "   (Event)",
-    "   (Operator)",
-    "   (TypeParameter)"
-}
-
+return M
