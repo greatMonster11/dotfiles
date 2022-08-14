@@ -89,10 +89,30 @@ _G.packer_plugins = {
     path = "C:\\Users\\npthanh\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["colorbuddy.vim"] = {
+    loaded = true,
+    path = "C:\\Users\\npthanh\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\colorbuddy.vim",
+    url = "https://github.com/tjdevries/colorbuddy.vim"
+  },
+  ["express_line.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\npthanh\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\express_line.nvim",
+    url = "https://github.com/tjdevries/express_line.nvim"
+  },
+  ["fidget.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\npthanh\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\fidget.nvim",
+    url = "https://github.com/j-hui/fidget.nvim"
+  },
   gruvbox = {
     loaded = true,
     path = "C:\\Users\\npthanh\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\gruvbox",
     url = "https://github.com/gruvbox-community/gruvbox"
+  },
+  ["gruvbuddy.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\npthanh\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\gruvbuddy.nvim",
+    url = "https://github.com/tjdevries/gruvbuddy.nvim"
   },
   neogit = {
     loaded = true,
@@ -103,6 +123,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\npthanh\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
+  },
+  ["nvim-colorizer.lua"] = {
+    loaded = true,
+    path = "C:\\Users\\npthanh\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-colorizer.lua",
+    url = "https://github.com/norcalli/nvim-colorizer.lua"
   },
   ["nvim-lspconfig"] = {
     loaded = true,

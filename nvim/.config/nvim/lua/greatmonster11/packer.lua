@@ -25,10 +25,20 @@ return require('packer').startup(function(use)
   -- Syntax highlighting
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
+  -- Ability to customize your own colorscheme
+  use { 'tjdevries/colorbuddy.vim' }
+  use { 'norcalli/nvim-colorizer.lua' }
+
   -- Colorscheme
   use { 'folke/tokyonight.nvim' }
   use { 'gruvbox-community/gruvbox' } -- My keyboard is glorious
+  use { 'tjdevries/gruvbuddy.nvim' }
 
   -- Productive things
   use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+
+  -- Statusline
+  use { 'tjdevries/express_line.nvim' }
+  use { 'j-hui/fidget.nvim' }
+
 end)
