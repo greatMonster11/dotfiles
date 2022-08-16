@@ -6,7 +6,13 @@ local inoremap = Remap.inoremap
 local xnoremap = Remap.xnoremap
 local nmap = Remap.nmap
 
-nnoremap("<leader>pv", ":Ex<CR>")
+-- Navigate between buffer
+nnoremap("<leader>j", "<C-w>j")
+nnoremap("<leader>h", "<C-w>h")
+nnoremap("<leader>k", "<C-w>k")
+nnoremap("<leader>l", "<C-w>l")
+
+nnoremap("<leader>pv", ":Sex!<CR>")
 nnoremap("<leader>u", ":UndotreeShow<CR>")
 
 vnoremap("J", ":m '>+1<CR>gv=gv")
