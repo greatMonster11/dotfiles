@@ -1,49 +1,75 @@
-vim.opt.guicursor = ""
+vim.g.loaded_matchparen = 1
+
+local opt = vim.opt
+
+opt.guicursor = ""
+
+-- Ignore compiled files
+opt.wildignore = "__pycache__"
+opt.wildignore = opt.wildignore + { "*.o", "*~", "*.pyc", "*pycache*" }
 
 -- Netrw settings
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 
-vim.opt.nu = true
-vim.opt.relativenumber = true
+opt.nu = true
+opt.relativenumber = true
 
-vim.opt.errorbells = false
+-- The dang bell :(
+opt.errorbells = false
+opt.belloff = "all"
 
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
+opt.tabstop = 4
+opt.softtabstop = 4
+opt.shiftwidth = 4
+opt.expandtab = true
 
-vim.opt.smartindent = true
-vim.opt.wrap = false
-vim.opt.showmode = false
+opt.smartindent = true
+opt.wrap = false
+opt.showmode = false
 
-vim.opt.swapfile = false
-vim.opt.backup = false
--- vim.opt.undodir = "~/AppData/local/nvim" .. "/.vim/undodir"
--- vim.opt.undofile = true
+opt.swapfile = false -- We all don't this right ?
+opt.backup = false
 
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
+opt.hlsearch = false
+opt.incsearch = true
 
-vim.opt.termguicolors = true
+opt.termguicolors = true
 
-vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
+opt.scrolloff = 8
+opt.signcolumn = "yes"
+opt.isfname:append("@-@")
 
 -- Give more space for displaying messages.
-vim.opt.cmdheight = 1
+opt.cmdheight = 1
 
 -- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 -- delays and poor user experience.
-vim.opt.updatetime = 50
+opt.updatetime = 50
 
 -- Don't pass messages to |ins-completion-menu|.
-vim.opt.shortmess:append("c")
+opt.shortmess:append("c")
 
-vim.opt.colorcolumn = "80"
+-- Red bar in the right ?
+opt.colorcolumn = "80"
 
 -- Where the magic happends
 vim.g.mapleader = " "
+
+-- Cursorline highlighting control
+--  Only have it on in the active buffer
+opt.cursorline = true -- Highlight the current line
+local group = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })
+local set_cursorline = function(event, value, pattern)
+  vim.api.nvim_create_autocmd(event, {
+    group = group,
+    pattern = pattern,
+    callback = function()
+      opt.cursorline = value
+    end,
+  })
+end
+set_cursorline("WinLeave", false)
+set_cursorline("WinEnter", true)
+set_cursorline("FileType", false, "TelescopePrompt")

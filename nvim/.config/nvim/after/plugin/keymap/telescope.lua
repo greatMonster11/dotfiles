@@ -27,3 +27,6 @@ nnoremap("<leader>vwh", function()
 end)
 
 -- Custom functions from Telescope utils
+nnoremap("<leader>vrc", function()
+    require('greatmonster11.telescope').search_dotfiles({ hidden = true })
+end)
